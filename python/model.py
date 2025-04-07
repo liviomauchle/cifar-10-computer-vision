@@ -36,7 +36,6 @@ class MyModel(Model):
 
         """
 
-        # TODO: Implement the forward pass through the layers of your neural network
         flattened = self.flattened(x)
         dense1 = self.dense1(flattened)
         dense2 = self.dense2(dense1)

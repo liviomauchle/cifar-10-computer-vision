@@ -1,3 +1,5 @@
+The guide below is only tested under windows.
+
 ## Build command:
 In the `/python` directory, run:
 

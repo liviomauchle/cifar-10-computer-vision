@@ -10,7 +10,10 @@ class Tester:
         self._model = model
 
     def __call__(self, test_dataset):
-        # TODO: Implement testing
+        model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-3),
+              loss=tf.keras.losses.CategoricalCrossentropy(from_logits=False),
+              metrics=['accuracy'])
+        
         model.evaluate(test_dataset, verbose=2)
 
 
