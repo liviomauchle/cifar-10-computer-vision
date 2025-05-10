@@ -17,6 +17,13 @@ class DataLoaderCIFAR:
         train_images = train_images[validation_dataset_size:]
         train_labels = train_labels[validation_dataset_size:]
 
+        def augment(x, y):
+            x = tf.image.random_flip_left_right(x)
+            x = tf.pad(x, [[4, 4], [4, 4], [0, 0]], "REFLECT")
+            x = tf.image.random_crop(x, size=[32, 32, 3])
+            x = tf.cast(x, tf.float32) / 255.0
+            return x, y
+        
         def preprocess(x, y):
             # Normalize pixel values to be between 0 and 1
             x = tf.cast(x, tf.float32) / 255.0
@@ -24,7 +31,7 @@ class DataLoaderCIFAR:
 
         self._train_dataset = (
             tf.data.Dataset.from_tensor_slices((train_images, train_labels))
-            .map(preprocess, num_parallel_calls=tf.data.AUTOTUNE)
+            .map(augment, num_parallel_calls=tf.data.AUTOTUNE)
             .shuffle(buffer_size=10000)
             .batch(mini_batch_size)
             .prefetch(tf.data.AUTOTUNE)
