@@ -42,6 +42,18 @@ class CNNModel(Model):
         self.act4  = layers.Activation('relu')
         self.pool4 = layers.MaxPooling2D(2)
         
+        # Conv block 5
+        self.conv5 = layers.Conv2D(128, 3, padding='same', use_bias=False)
+        self.bn5   = layers.BatchNormalization()
+        self.act5  = layers.Activation('relu')
+        self.pool5 = layers.MaxPooling2D(2)
+        
+        # Conv block 6
+        self.conv6 = layers.Conv2D(128, 3, padding='same', use_bias=False)
+        self.bn6   = layers.BatchNormalization()
+        self.act6  = layers.Activation('relu')
+        self.pool6 = layers.MaxPooling2D(2)
+        
         # Head
         self.flatten = layers.Flatten()
         self.dropout = layers.Dropout(0.4)
@@ -70,6 +82,16 @@ class CNNModel(Model):
         x = self.bn4(x, training=training)
         x = self.act4(x)
         x = self.pool4(x)
+        
+        x = self.conv5(x)
+        x = self.bn5(x, training=training)
+        x = self.act5(x)
+        x = self.pool5(x)
+        
+        x = self.conv6(x)
+        x = self.bn6(x, training=training)
+        x = self.act6(x)
+        x = self.pool6(x)
         
         x = self.flatten(x)
         x = self.dropout(x)

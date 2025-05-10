@@ -35,6 +35,6 @@ if __name__ == "__main__":
     valid_dataset = data_loader.valid_dataset
     
     train = Trainer(model)
-    train(train_dataset, valid_dataset, epochs=30)
+    train(train_dataset, valid_dataset, epochs=10)
 
     model.save("cnnModel.keras")
