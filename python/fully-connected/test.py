@@ -8,17 +8,15 @@ class Tester:
         self._model = model
 
     def __call__(self, test_dataset):
-        test_loss, test_acc = model.evaluate(test_dataset, verbose=2)
-        
-        print("Test Loss: ", test_loss)
-        print("Test Accuracy: ", test_acc)
+        loss, acc, top5 = self._model.evaluate(test_dataset, verbose=0)
+        print(f"Test-set accuracy: {acc*100:5.2f}%  |  Top-5: {top5*100:5.2f}%")
+        return acc
 
 
 if __name__ == "__main__":
     model = keras.models.load_model("fullyConnectedModel.keras")
 
     data_loader = DataLoaderCIFAR()
-    test_dataset = data_loader.test_dataset
 
-    test = Tester(model)
-    test(test_dataset)
+    Tester(model)(data_loader.test_dataset)
+
