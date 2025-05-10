@@ -1,4 +1,7 @@
+*.keras
+
 python/logs
+**/python/logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
