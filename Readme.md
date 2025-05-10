@@ -29,7 +29,7 @@ python data.py
 ## Open Tensorboard:
 
 ```
-tensorboard --logdir logs/gradient_tape
+tensorboard --logdir logs
 ```
 
 Open under: http://localhost:6006/
