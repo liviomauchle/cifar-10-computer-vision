@@ -3,7 +3,6 @@ from modelCNN import ModelCNN
 import tensorflow as tf
 import datetime, os
 from tensorflow.keras import mixed_precision
-# mixed_precision.set_global_policy('mixed_float16')
 # tf.config.optimizer.set_jit('autoclustering')
 
 class Trainer:

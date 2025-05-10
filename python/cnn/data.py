@@ -24,9 +24,8 @@ class DataLoaderCIFAR:
         
         def augment(x, y):
             x = tf.image.random_flip_left_right(x)
-            x = tf.image.resize_with_crop_or_pad(x, 36, 36)   # pad 4 px
-            x = tf.image.random_crop(x, (32, 32, 3))
-            x = tf.cast(x, tf.float32) / 255.0
+            x = tf.image.random_contrast(x, 0.9, 1.1)
+            x = tf.cast(x, tf.float32) / 255.
             return x, y
 
         self._train_dataset = (

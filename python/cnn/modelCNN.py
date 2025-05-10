@@ -32,14 +32,6 @@ class BasicBlock(layers.Layer):
 class ModelCNN(Model):
     def __init__(self, num_classes=10, **kwargs):
         super().__init__(**kwargs)
-        self.aug = tf.keras.Sequential([
-            layers.RandomFlip('horizontal'),
-            layers.ZeroPadding2D(4),
-            layers.RandomCrop(32, 32),
-            layers.RandomRotation(0.1),
-            layers.RandomContrast(0.1),
-            tf.keras.layers.RandomZoom(0.1),
-        ])
         self.conv1 = layers.Conv2D(64, 3, 1, padding='same',
                                    kernel_initializer='he_normal',
                                    kernel_regularizer=regularizers.l2(5e-4))
@@ -63,7 +55,6 @@ class ModelCNN(Model):
         return tf.keras.Sequential(layers_list)
 
     def call(self, x, training=False):
-        x = self.aug(x, training=training)
         x = self.relu(self.bn1(self.conv1(x), training=training))
         x = self.stage2(x, training=training)
         x = self.stage3(x, training=training)
