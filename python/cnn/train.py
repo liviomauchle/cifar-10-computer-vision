@@ -2,8 +2,7 @@ from data import DataLoaderCIFAR
 from modelCNN import ModelCNN
 import tensorflow as tf
 import datetime, os
-from tensorflow.keras import mixed_precision
-# tf.config.optimizer.set_jit('autoclustering')
+tf.config.optimizer.set_jit('autoclustering')
 
 class Trainer:
     def __init__(self, model):
@@ -23,7 +22,7 @@ class Trainer:
         log_dir = os.path.join("logs", "fit", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 
         callbacks = [
-            tf.keras.callbacks.ModelCheckpoint("best_modelCNN.keras", save_best_only=True, monitor="val_accuracy", mode="max"),
+            tf.keras.callbacks.ModelCheckpoint("best_modelCNN.tf", save_best_only=True, monitor="val_accuracy", mode="max", save_format="tf"),
             tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1, write_graph=True, write_images=True),
             tf.keras.callbacks.EarlyStopping(monitor="val_accuracy", patience=20, restore_best_weights=True),
             tf.keras.callbacks.LearningRateScheduler(lr_callback)
@@ -36,7 +35,6 @@ class Trainer:
 
 if __name__ == "__main__":
     model = ModelCNN(name="modelCNN")
-    data_loader = DataLoaderCIFAR(mini_batch_size=128)
+    data_loader = DataLoaderCIFAR(mini_batch_size=256)
     trainer = Trainer(model)
-    trainer(data_loader.train_dataset, data_loader.valid_dataset, epochs=200)
-    model.save("modelCNN.keras")
+    trainer(data_loader.train_dataset, data_loader.valid_dataset, epochs=300)

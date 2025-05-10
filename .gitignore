@@ -1,5 +1,5 @@
 *.keras
-
+*.tf
 **/logs
 
 # Byte-compiled / optimized / DLL files

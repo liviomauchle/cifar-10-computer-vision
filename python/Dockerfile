@@ -1,5 +1,8 @@
 FROM nvcr.io/nvidia/tensorflow:24.01-tf2-py3
 
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_CAPABILITIES compute,utility,graphics
+
 ARG DOCKER_USER
 ARG DOCKER_UID
 ARG DOCKER_GID

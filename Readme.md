@@ -11,7 +11,7 @@ docker build --build-arg DOCKER_USER=myuser --build-arg DOCKER_UID=1000 --build-
 To run the container:
 
 ```bash
-docker run -it -p 8888:8888 -p 6006:6006 -v ${PWD}:/home/myuser/work --name tf_mnist_container tf_mnist
+docker run --gpus all -it -p 8888:8888 -p 6006:6006 -v %cd%:/home/myuser/work --name tf_mnist_container tf_mnist
 ```
 
 - 6006:6006 is a portmapping so we can access the tensorboard from our browser
