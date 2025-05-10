@@ -2,6 +2,8 @@ from data import DataLoaderCIFAR
 from modelFullyConnected import FullyConnectedModel
 import tensorflow as tf
 import datetime, os
+import visualkeras
+from tensorflow.keras import Input, Model
 
 class Trainer:
     def __init__(self, model):
@@ -39,13 +41,16 @@ class Trainer:
 if __name__ == "__main__":
     model = FullyConnectedModel("CIFARClassifier")
 
-    data_loader = DataLoaderCIFAR()
+    data_loader = DataLoaderCIFAR(mini_batch_size=512)
     train_dataset = data_loader.train_dataset
     valid_dataset = data_loader.valid_dataset
     
     train = Trainer(model)
-    train(train_dataset, valid_dataset, epochs=1)
+    train(train_dataset, valid_dataset, epochs=300)
     
-    tf.keras.utils.plot_model(model, "fullyConnectedModel.png", show_shapes=True, dpi=120)
+    # inp = Input(shape=(32, 32, 3))
+    # out = model.call(inp)  
+    # func_model = Model(inputs=inp, outputs=out)
+    # visualkeras.layered_view(func_model, to_file='visualkeras_output.png', legend=True, show_dimension=True)
 
     model.save("fullyConnectedModel.keras")

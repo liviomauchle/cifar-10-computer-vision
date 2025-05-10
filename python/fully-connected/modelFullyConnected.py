@@ -15,31 +15,31 @@ class FullyConnectedModel(Model):
                          kernel_initializer=HeNormal(),
                          kernel_regularizer=l2(weight_decay))
         self.bn1 = BatchNormalization(); 
-        self.do1 = Dropout(0.20)
+        self.do1 = Dropout(0.2)
 
         self.fc2 = Dense(2048, activation="relu",
                          kernel_initializer=HeNormal(),
                          kernel_regularizer=l2(weight_decay))
         self.bn2 = BatchNormalization(); 
-        self.do2 = Dropout(0.20)
+        self.do2 = Dropout(0.2)
 
         self.fc3 = Dense(1024, activation="relu",
                          kernel_initializer=HeNormal(),
                          kernel_regularizer=l2(weight_decay))
         self.bn3 = BatchNormalization(); 
-        self.do3 = Dropout(0.30)
+        self.do3 = Dropout(0.3)
 
         self.fc4 = Dense(512, activation="relu",
                          kernel_initializer=HeNormal(),
                          kernel_regularizer=l2(weight_decay))
         self.bn4 = BatchNormalization(); 
-        self.do4 = Dropout(0.40)
+        self.do4 = Dropout(0.4)
 
         self.fc5 = Dense(256, activation="relu",
                          kernel_initializer=HeNormal(),
                          kernel_regularizer=l2(weight_decay))
         self.bn5 = BatchNormalization(); 
-        self.do5 = Dropout(0.50)
+        self.do5 = Dropout(0.5)
 
         self.out = Dense(10, activation="softmax")
 

@@ -38,7 +38,8 @@ RUN pip3 install --no-cache-dir \
     opencv-python \
     pytest \
     spyder \
-    tensorflow_datasets
+    tensorflow_datasets \
+    visualkeras
 
 RUN groupadd --gid $DOCKER_GID $DOCKER_USER && \
     useradd --uid $DOCKER_UID --gid $DOCKER_GID -m $DOCKER_USER
