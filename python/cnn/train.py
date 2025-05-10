@@ -2,6 +2,9 @@ from data import DataLoaderCIFAR
 from modelCNN import ModelCNN
 import tensorflow as tf
 import datetime, os
+from tensorflow.keras import mixed_precision
+# mixed_precision.set_global_policy('mixed_float16')
+# tf.config.optimizer.set_jit('autoclustering')
 
 class Trainer:
     def __init__(self, model):
@@ -19,7 +22,7 @@ class Trainer:
         def lr_callback(epoch, lr): return lr_schedule(epoch)
 
         log_dir = os.path.join("logs", "fit", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-        
+
         callbacks = [
             tf.keras.callbacks.ModelCheckpoint("best_modelCNN.keras", save_best_only=True, monitor="val_accuracy", mode="max"),
             tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1, write_graph=True, write_images=True),
@@ -34,7 +37,7 @@ class Trainer:
 
 if __name__ == "__main__":
     model = ModelCNN(name="modelCNN")
-    data_loader = DataLoaderCIFAR(mini_batch_size=512)
+    data_loader = DataLoaderCIFAR(mini_batch_size=128)
     trainer = Trainer(model)
     trainer(data_loader.train_dataset, data_loader.valid_dataset, epochs=200)
     model.save("modelCNN.keras")

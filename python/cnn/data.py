@@ -21,11 +21,18 @@ class DataLoaderCIFAR:
             # Normalize pixel values to be between 0 and 1
             x = tf.cast(x, tf.float32) / 255.0
             return x, y
+        
+        def augment(x, y):
+            x = tf.image.random_flip_left_right(x)
+            x = tf.image.resize_with_crop_or_pad(x, 36, 36)   # pad 4 px
+            x = tf.image.random_crop(x, (32, 32, 3))
+            x = tf.cast(x, tf.float32) / 255.0
+            return x, y
 
         self._train_dataset = (
             tf.data.Dataset.from_tensor_slices((train_images, train_labels))
-            .map(preprocess, num_parallel_calls=tf.data.AUTOTUNE)
-            .shuffle(buffer_size=10000)
+            .shuffle(buffer_size=50000)
+            .map(augment, num_parallel_calls=tf.data.AUTOTUNE)
             .batch(mini_batch_size)
             .prefetch(tf.data.AUTOTUNE)
         )
