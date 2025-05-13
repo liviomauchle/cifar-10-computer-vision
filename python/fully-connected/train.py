@@ -29,7 +29,6 @@ class Trainer:
         callbacks = [
             tf.keras.callbacks.TensorBoard(run_dir, histogram_freq=1),
             tf.keras.callbacks.EarlyStopping(patience=15, restore_best_weights=True),
-            tf.keras.callbacks.ReduceLROnPlateau(factor=0.1, patience=5, verbose=2)
         ]
 
         self._model.fit(train_dataset,
